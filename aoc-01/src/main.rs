@@ -21,6 +21,8 @@ fn part1(input: &str) -> Result<()> {
     Ok(())
 }
 
+/// 第二个问题，逻辑也比较简单，在周期性数据中找到出现第二次的综合频率，用一个HashSet记录已经出现的频率
+/// 当我们在循环中找到第二次出现的HashSet元素即可将其返回
 fn part2(input: &str) -> Result<()> {
     let mut freq = 0;
     let mut seen = HashSet::new();
