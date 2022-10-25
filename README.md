@@ -1,6 +1,11 @@
-# Advent-of-Code-2018-Rust-practice
+# 用Rust写一遍2018年Advent of Code
 
-用Rust写一遍2018年Advent of Code，会用中文尽量在旁边写上注释的  
+当做一个中文的解题Solution放在这里，当做Rust的学习练习了
 
-用法 cd aoc 0x  
+会记录一下自己的解题思路
+
+```shell
+cd aoc-0x
+# 0x中的x指题号
 cargo run
+```
