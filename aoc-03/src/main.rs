@@ -8,9 +8,6 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-// input: #123 @ 3,2: 5*4
-// id:123, 3 inches from the left, 2 inches from the top
-// 5*4 square
 fn part1(input: &str) -> Result<()> {
     let mut storage_arr = vec![vec![0u32; 1000]; 1000];
     for line in input.lines() {
@@ -22,17 +19,40 @@ fn part1(input: &str) -> Result<()> {
         }
     };
     let mut counter = 0;
-    for arr in storage_arr.into_iter() {
-        for item in arr.into_iter() {
-            if item > 1 {
+    for arr in &storage_arr {
+        for item in &(*arr) {
+            if *item > 1 {
                 counter += 1;
             }
         }
     }
-    println!("{}",counter);
+    let mut id = 0;
+
+    // 思路比较简单，寻找数组里全部只被增加了一次的元素就好
+    for line in input.lines() {
+        id += 1;
+        let (from_left, from_top, width, height) = handle_line(line);
+        let mut checker = 0;
+        for i in from_top..from_top+height {
+            for j in from_left..from_left+width {
+                if storage_arr[i as usize][j as usize] == 1 {
+                    checker += 1;
+                }
+            } 
+        }
+        if checker == width*height {
+            println!("id: {}",id);
+        }
+    };
+    println!("counter: {}",counter);
     Ok(())
 }
 
+// input: #123 @ 3,2: 5*4
+// id:123, 3 inches from the left, 2 inches from the top
+// 5*4 square
+
+// 这是一个比较蠢的 parse 方式，可惜我的正则表达式学得很拉胯，我看awesome aoc里都是用正则的，反正能用是吧
 pub fn handle_line(raw_line: &str) -> (i32, i32, i32, i32) {
     let temp: Vec<&str> = raw_line.split("@ ").collect();
     let temp = temp[1];
