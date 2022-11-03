@@ -12,16 +12,24 @@ fn main() -> Result<()> {
 // id:123, 3 inches from the left, 2 inches from the top
 // 5*4 square
 fn part1(input: &str) -> Result<()> {
-    let mut storage_arr = Box::new([[0u16; 1000]; 1000]); 
+    let mut storage_arr = vec![vec![0u32; 1000]; 1000];
     for line in input.lines() {
         let (from_left, from_top, width, height) = handle_line(line);
         for i in from_top..from_top+height {
             for j in from_left..from_left+width {
-                storage_arr[i as usize][j as usize] = 1;
+                storage_arr[i as usize][j as usize] += 1;
             } 
         }
+    };
+    let mut counter = 0;
+    for arr in storage_arr.into_iter() {
+        for item in arr.into_iter() {
+            if item > 1 {
+                counter += 1;
+            }
+        }
     }
-    println!("{:?}", storage_arr);
+    println!("{}",counter);
     Ok(())
 }
 
